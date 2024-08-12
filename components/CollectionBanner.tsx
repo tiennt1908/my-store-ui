@@ -12,7 +12,7 @@ type Props = {
 
 export default function CollectionBanner({ img, slug, name, desc }: Props) {
   return (
-    <div>
+    <Link href={`collection/${slug}`}>
       <div
         className="w-full bg-cover bg-center bg-no-repeat"
         style={{
@@ -20,19 +20,6 @@ export default function CollectionBanner({ img, slug, name, desc }: Props) {
           backgroundImage: `url("${GET_IMAGE_URL_HELPER('collection', img)}")`,
         }}
       />
-      <div className="pt-4 pb-2">
-        <div className="text-center">
-          <p className="font-medium text-xl">{name}</p>
-          <p className="text-slate-500 mt-2">{desc}</p>
-        </div>
-        <Link href={`collection/${slug}`}>
-          <div className="flex justify-center mt-2">
-            <Button shadow="none" theme="black">
-              Explore Collection
-            </Button>
-          </div>
-        </Link>
-      </div>
-    </div>
+    </Link>
   );
 }

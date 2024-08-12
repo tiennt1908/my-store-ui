@@ -32,9 +32,9 @@ export default async function Home() {
       <div>
         <div className="bg-white rounded shadow-sm">
           <div className="flex justify-between p-4 border-b">
-            <p className="text-xl font-bold">Flash Sale</p>
-            <Link href="/products" className="font-medium">
-              View mores
+            <p className="text-lg font-medium text-red-500">Giảm giá nhiều nhất</p>
+            <Link href="/products?sortCol=salePercent&sortType=DESC" className="font-medium">
+              Xem thêm
             </Link>
           </div>
           <div className="grid grid-cols-10 gap-4 p-4">

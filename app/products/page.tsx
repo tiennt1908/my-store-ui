@@ -151,13 +151,16 @@ export default function Products({}: Props) {
                 label="Sắp xếp sản phẩm"
                 box={{ width: '200px' }}
                 shadow="sm"
+                optionListProps={{
+                  optionList: sortSelect.optionList,
+                  modeSelected: 'background',
+                  shadow: 'none',
+                }}
                 isOpen={sortSelect.isOpen}
                 onClose={sortSelect.onClose}
                 onSelect={sortSelect.onSelect}
                 onToggle={sortSelect.onToggle}
-                optionList={sortSelect.optionList}
                 value={sortSelect.value as string}
-                modeSelected="background"
               />
             </div>
           </div>

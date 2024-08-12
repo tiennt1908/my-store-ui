@@ -1,9 +1,7 @@
-import { IOption } from '@/app/lib/interface/component.interface';
 import {
   BorderColorOption,
   BorderWidthOption,
   DarkThemeOption,
-  ModeSelectedOption,
   RadiusOption,
   ShadowOption,
   SizeOption,
@@ -12,15 +10,16 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import Button from './Button';
 import SpinIcon from './Icons/SpinIcon';
-import OptionList from './OptionList';
+import OptionList, { OptionListProps } from './OptionList';
 
 type SelectProps = {
   label: string;
   defaultIcon?: Function | string | undefined;
 
-  optionList: IOption[];
+  optionListProps: OptionListProps;
+
   isOpen: boolean;
-  value: string;
+  value?: unknown;
   onSelect: Function;
   onToggle: Function;
   onClose: Function;
@@ -43,10 +42,9 @@ type SelectProps = {
     [key: string]: unknown;
   };
 
-  modeSelected?: ModeSelectedOption;
-
   isIconRounded?: boolean;
   isLoading?: boolean;
+  isHiddenArrow?: boolean;
 
   [key: string]: unknown;
 };
@@ -55,7 +53,7 @@ export default function Select({
   label,
   defaultIcon,
 
-  optionList,
+  optionListProps,
   isOpen,
   value,
   onSelect,
@@ -79,14 +77,13 @@ export default function Select({
     width: 'fit-content',
   },
 
-  modeSelected,
-
   isIconRounded,
   isLoading = false,
+  isHiddenArrow = false,
 
   ...restProps
 }: SelectProps) {
-  const optionSelected = optionList.find((op) => op.id === value);
+  const optionSelected = optionListProps.optionList.find((op) => op.id === value);
 
   const positionMap = {
     left: 'left-0',
@@ -96,7 +93,7 @@ export default function Select({
   const boxClass = `mt-2 
     absolute 
     ${positionMap[box?.position || 'left']} 
-    ${box?.className}
+    ${optionListProps?.className}
   `;
 
   return (
@@ -126,7 +123,7 @@ export default function Select({
             icon: optionSelected ? optionSelected.icon : defaultIcon,
           }}
           right={{
-            icon: !isLoading ? ChevronDownIcon : SpinIcon,
+            icon: !isLoading ? (isHiddenArrow ? () => {} : ChevronDownIcon) : SpinIcon,
             className: 'transaction-all duration-300',
             style: { rotate: isOpen ? '-180deg' : '0deg' },
           }}
@@ -148,15 +145,14 @@ export default function Select({
             borderWidth={borderWidth}
             size={size}
             onSelect={onSelect}
-            modeSelected={modeSelected}
-            className={boxClass}
             style={{
               ...(box?.style ? box.style : {}),
               ...(box?.width ? { width: box.width } : {}),
             }}
             isIconRounded={isIconRounded}
-            value={value}
-            optionList={optionList}
+            {...optionListProps}
+            className={boxClass}
+            selectValue={value}
           />
         )}
       </div>

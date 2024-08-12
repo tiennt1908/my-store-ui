@@ -28,7 +28,7 @@ export default function RootLayout({
         <body className="bg-slate-100">
           <GlobalCall />
           <Header />
-          <div className="px-24 pb-4">
+          <div className="px-24 py-4">
             <Auth>{children}</Auth>
           </div>
           <Notify />

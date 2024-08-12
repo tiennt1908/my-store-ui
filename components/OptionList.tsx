@@ -12,7 +12,7 @@ import {
 } from '@/app/lib/type/decoration.type';
 import { IOption } from '@/app/lib/interface/component.interface';
 
-type Props = {
+export type OptionListProps = {
   size?: SizeOption;
   optionList: IOption[];
   darkTheme?: DarkThemeOption;
@@ -26,7 +26,7 @@ type Props = {
   modeSelected?: ModeSelectedOption;
   isIconRounded?: boolean;
   onSelect?: Function;
-  value: string;
+  value?: unknown;
 
   [key: string]: unknown;
 };
@@ -44,10 +44,10 @@ export default function OptionList({
   borderWidth = 'none',
   icon,
   onSelect,
-  value,
+  selectValue,
   modeSelected,
   ...restProps
-}: Props) {
+}: OptionListProps) {
   const themeMap = {
     none: '',
     primary: `bg-indigo-600 text-white`,
@@ -102,6 +102,7 @@ export default function OptionList({
         ${borderColorMap[borderColor]} 
         ${className}
     `;
+
   return (
     <div className={optionListClass} {...restProps}>
       {optionList.map((option) => {
@@ -113,7 +114,7 @@ export default function OptionList({
               }
             }}
             key={option.id}
-            isSelected={option.href ? value.includes(option.href) : value === option.id}
+            isSelected={option.href ? selectValue === option.href : selectValue === option.id}
             theme={theme}
             isRounded={isIconRounded}
             size={size}

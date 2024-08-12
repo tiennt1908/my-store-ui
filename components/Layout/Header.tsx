@@ -62,6 +62,7 @@ export default function Header({}: Props) {
         )}
         {user.id > 0 && (
           <Select
+            isHiddenArrow={true}
             width={175}
             label={user.fullName}
             defaultIcon={UserIcon}
@@ -71,10 +72,13 @@ export default function Header({}: Props) {
             onClose={profileSelect.onClose}
             onSelect={profileSelect.onSelect}
             onToggle={profileSelect.onToggle}
-            optionList={profileSelect.optionList}
             value={'_'}
-            modeSelected="background"
             shadow="none"
+            optionListProps={{
+              optionList: profileSelect.optionList,
+              modeSelected: 'background',
+              shadow: 'sm',
+            }}
           />
         )}
 

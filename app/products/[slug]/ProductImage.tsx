@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { PRODUCT_API } from "@/app/api/product";
-import { IProduct, IProductImage } from "@/app/api/product/product.output";
-import SliderCustom from "@/components/Slider";
-import { useEffect, useState } from "react";
-import Image from "./Image";
+import { PRODUCT_API } from '@/app/api/product';
+import { IProduct, IProductImage } from '@/app/api/product/product.output';
+import Slide from '@/components/Slide';
+import { useEffect, useState } from 'react';
+import Image from './Image';
 
 export default function ProductImage({ id, slug }: IProduct) {
   const [images, setImages] = useState<IProductImage[]>([]);
@@ -21,11 +21,19 @@ export default function ProductImage({ id, slug }: IProduct) {
 
   return (
     <div className="h-full">
-      <SliderCustom dots={true}>
+      <Slide
+        isDot={true}
+        slideButtonProps={{
+          rounded: 'full',
+          height: 35,
+          width: 35,
+          darkTheme: 'none',
+        }}
+      >
         {images.map((e) => {
           return <Image key={e.id} url={`${slug}-${e.index}`} />;
         })}
-      </SliderCustom>
+      </Slide>
     </div>
   );
 }
