@@ -77,15 +77,17 @@ export default function Slide({
   };
 
   const handleGotoSlide = (slideNumber: number) => {
-    if (childCount - slideNumber < elementInSlide) {
-      handleGotoSlide(childCount - elementInSlide);
-    } else if (slideNumber < 0) {
-      handleGotoSlide(0);
-    } else {
-      if (onSlideChange) {
-        onSlideChange(slideNumber);
+    if (childCount > elementInSlide) {
+      if (childCount - slideNumber < elementInSlide) {
+        handleGotoSlide(childCount - elementInSlide);
+      } else if (slideNumber < 0) {
+        handleGotoSlide(0);
+      } else {
+        if (onSlideChange) {
+          onSlideChange(slideNumber);
+        }
+        setCurrentSlide(slideNumber);
       }
-      setCurrentSlide(slideNumber);
     }
   };
   const handleNextSlide = () => {
@@ -111,15 +113,17 @@ export default function Slide({
 
   return (
     <div className="relative flex items-center text-slate-700">
-      <Button
-        onClick={handleBackSlide}
-        rounded="none"
-        {...slideButtonProps}
-        className={slideButtonClass}
-        style={{ zIndex: 1, left: slideButtonSpacingX, ...(slideButtonProps?.style || {}) }}
-      >
-        <ChevronLeftIcon className="w-4" />
-      </Button>
+      <RenderIf isRender={childCount > elementInSlide}>
+        <Button
+          onClick={handleBackSlide}
+          rounded="none"
+          {...slideButtonProps}
+          className={slideButtonClass}
+          style={{ zIndex: 1, left: slideButtonSpacingX, ...(slideButtonProps?.style || {}) }}
+        >
+          <ChevronLeftIcon className="w-4" />
+        </Button>
+      </RenderIf>
       <div className="w-full overflow-hidden relative">
         <div className={`flex ${className} ${isTransition ? 'transition ease-out' : ''}`} style={styleSlide}>
           {childArray.map((e, k) => {
@@ -148,15 +152,17 @@ export default function Slide({
           </div>
         </RenderIf>
       </div>
-      <Button
-        onClick={handleNextSlide}
-        rounded="none"
-        {...slideButtonProps}
-        className={slideButtonClass + ` right-0`}
-        style={{ zIndex: 1, right: slideButtonSpacingX, ...(slideButtonProps?.style || {}) }}
-      >
-        <ChevronRightIcon className="w-4" />
-      </Button>
+      <RenderIf isRender={childCount > elementInSlide}>
+        <Button
+          onClick={handleNextSlide}
+          rounded="none"
+          {...slideButtonProps}
+          className={slideButtonClass + ` right-0`}
+          style={{ zIndex: 1, right: slideButtonSpacingX, ...(slideButtonProps?.style || {}) }}
+        >
+          <ChevronRightIcon className="w-4" />
+        </Button>
+      </RenderIf>
     </div>
   );
 }

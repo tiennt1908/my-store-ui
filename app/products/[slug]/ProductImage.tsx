@@ -5,6 +5,7 @@ import { IProduct, IProductImage } from '@/app/api/product/product.output';
 import Slide from '@/components/Slide';
 import { useEffect, useState } from 'react';
 import Image from './Image';
+import ProductThumbnail from './ProductThumbnail';
 
 export default function ProductImage({ id, slug }: IProduct) {
   const [images, setImages] = useState<IProductImage[]>([]);
@@ -20,9 +21,9 @@ export default function ProductImage({ id, slug }: IProduct) {
   }, []);
 
   return (
-    <div className="h-full">
+    <div className="bg-white rounded shadow-sm p-4 flex flex-col gap-4">
       <Slide
-        isDot={true}
+        isDot={false}
         slideButtonProps={{
           rounded: 'full',
           height: 35,
@@ -34,6 +35,7 @@ export default function ProductImage({ id, slug }: IProduct) {
           return <Image key={e.id} url={`${slug}-${e.index}`} />;
         })}
       </Slide>
+      <ProductThumbnail images={images} slug={slug} />
     </div>
   );
 }

@@ -127,7 +127,7 @@ export default function ProductInfo({ product }: Props) {
   const propductPropertyGroup = productProperty?.optionGroup?.find((e) => e.id === form.propertyGroupId);
 
   return (
-    <div className="flex flex-col gap-4 h-full px-4">
+    <div className="flex flex-col gap-4 px-4 bg-white rounded shadow-sm p-4">
       <p className="text-xl">{product.name}</p>
       <div className="flex gap-2 items-center text-xl">
         <p className="font-medium">{priceRender}đ</p>

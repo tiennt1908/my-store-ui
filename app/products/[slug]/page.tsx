@@ -10,11 +10,11 @@ export default async function ProductDetail({ params: { slug } }: { params: { sl
 
   return (
     <div>
-      <div className="grid grid-cols-12 gap-4" style={{ height: 500 }}>
-        <div className="col-span-7 bg-white rounded shadow-sm p-4">
+      <div className="grid grid-cols-12 gap-4" style={{ height: 1500 }}>
+        <div className="col-span-7">
           <ProductImage {...product} />
         </div>
-        <div className="col-span-5 bg-white rounded shadow-sm p-4">
+        <div className="col-span-5">
           <ProductInfo product={product} />
         </div>
       </div>

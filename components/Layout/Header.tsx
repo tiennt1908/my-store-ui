@@ -63,7 +63,6 @@ export default function Header({}: Props) {
         {user.id > 0 && (
           <Select
             isHiddenArrow={true}
-            width={175}
             label={user.fullName}
             defaultIcon={UserIcon}
             box={{ width: 175, className: 'shadow-sm' }}
