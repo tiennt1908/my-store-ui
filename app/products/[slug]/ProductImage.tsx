@@ -9,6 +9,7 @@ import ProductThumbnail from './ProductThumbnail';
 
 export default function ProductImage({ id, slug }: IProduct) {
   const [images, setImages] = useState<IProductImage[]>([]);
+  const [slideNumber, setSlideNumber] = useState<number>(0);
 
   useEffect(() => {
     if (id) {
@@ -19,7 +20,11 @@ export default function ProductImage({ id, slug }: IProduct) {
       });
     }
   }, []);
+  const handleSetSlideNumber = (newSlideNumber: number) => {
+    setSlideNumber(newSlideNumber);
+  };
 
+  console.log(slideNumber, 'slideNumber');
   return (
     <div className="bg-white rounded shadow-sm p-4 flex flex-col gap-4">
       <Slide
@@ -30,12 +35,14 @@ export default function ProductImage({ id, slug }: IProduct) {
           width: 35,
           darkTheme: 'none',
         }}
+        gotoSlide={slideNumber}
+        onSlideChange={handleSetSlideNumber}
       >
         {images.map((e) => {
           return <Image key={e.id} url={`${slug}-${e.index}`} />;
         })}
       </Slide>
-      <ProductThumbnail images={images} slug={slug} />
+      <ProductThumbnail slideNumber={slideNumber} onChangeSlide={handleSetSlideNumber} images={images} slug={slug} />
     </div>
   );
 }

@@ -7,9 +7,11 @@ import React from 'react';
 type Props = {
   images: IProductImage[];
   slug: string;
+  onChangeSlide: Function;
+  slideNumber: number;
 };
 
-export default function ProductThumbnail({ images, slug }: Props) {
+export default function ProductThumbnail({ onChangeSlide, slideNumber, images, slug }: Props) {
   return (
     <Thumbnail
       pxPerSlide={200}
@@ -24,7 +26,13 @@ export default function ProductThumbnail({ images, slug }: Props) {
     >
       {images.map((e, k) => {
         return (
-          <div className="flex justify-center" key={k}>
+          <div
+            onClick={() => {
+              onChangeSlide(k);
+            }}
+            className={`flex items-center cursor-pointer border border-2 ${slideNumber === k ? 'border-slate-400' : 'border-transparent'}`}
+            key={k}
+          >
             <div
               className="w-full h-full bg-cover bg-center bg-no-repeat"
               style={{

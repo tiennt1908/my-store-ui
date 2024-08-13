@@ -1,6 +1,6 @@
 'use client';
 
-import React, { CSSProperties, ReactNode, useState } from 'react';
+import React, { CSSProperties, ReactNode, useEffect, useState } from 'react';
 import Button, { ButtonProps } from './Button';
 import RenderIf from './RenderIf';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
@@ -61,6 +61,10 @@ export default function Slide({
   for (i = 0; i < dotCount; i++) {
     dotArray.push(i);
   }
+
+  useEffect(() => {
+    setCurrentSlide(gotoSlide);
+  }, [gotoSlide]);
 
   const handleCloneSlide = (index: number) => {
     const childrenArray = React.Children.toArray(children);
