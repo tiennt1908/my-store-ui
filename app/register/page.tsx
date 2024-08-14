@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import Button from "@/components/Button";
-import FormInput from "@/components/FormInput";
-import { IFormRequire, useForm } from "@/customHooks/useForm";
-import { actionAsyncRegister } from "@/redux/slices/auth.slice";
-import { AppDispatch } from "@/redux/store";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React from "react";
-import { useDispatch } from "react-redux";
+import Button from '@/components/Button';
+import FormInput from '@/components/FormInput';
+import WrappedLink from '@/components/Wrapped/WrappedLink';
+import { IFormRequire, useForm } from '@/customHooks/useForm';
+import { actionAsyncRegister } from '@/redux/slices/auth.slice';
+import { AppDispatch } from '@/redux/store';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
 type RegisterFormType = {
   fullName: string;
@@ -22,54 +23,54 @@ export default function RegisterPage() {
   const router = useRouter();
 
   const initForm: RegisterFormType = {
-    fullName: "",
-    phoneNumber: "",
-    password: "",
-    rePassword: "",
+    fullName: '',
+    phoneNumber: '',
+    password: '',
+    rePassword: '',
   };
 
   const initRequire: IFormRequire = {
     fullName: {
       isRequired: {
         value: true,
-        message: "Yêu cầu không để trống",
+        message: 'Yêu cầu không để trống',
       },
       minLength: {
         value: 3,
-        message: "Yêu cầu ít nhất 3 ký tự",
+        message: 'Yêu cầu ít nhất 3 ký tự',
       },
       maxLength: {
         value: 32,
-        message: "Yêu cầu tối đa 32 ký tự",
+        message: 'Yêu cầu tối đa 32 ký tự',
       },
       pattern: {
         value:
           /^(\s?[a-z0-9A-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+)+$/,
-        message: "Họ tên chứa ký tự không hợp lệ",
+        message: 'Họ tên chứa ký tự không hợp lệ',
       },
     },
     phoneNumber: {
       isRequired: {
         value: true,
-        message: "Yêu cầu không để trống",
+        message: 'Yêu cầu không để trống',
       },
       pattern: {
         value: /^0[0-9]{9}$/,
-        message: "Số điện thoại không hợp lệ",
+        message: 'Số điện thoại không hợp lệ',
       },
     },
     password: {
       isRequired: {
         value: true,
-        message: "Yêu cầu không để trống",
+        message: 'Yêu cầu không để trống',
       },
       minLength: {
         value: 6,
-        message: "Mật khẩu phải có ít nhất 6 ký tự",
+        message: 'Mật khẩu phải có ít nhất 6 ký tự',
       },
       maxLength: {
         value: 32,
-        message: "Mật khẩu tối đa 32 ký tự",
+        message: 'Mật khẩu tối đa 32 ký tự',
       },
     },
     rePassword: {
@@ -77,15 +78,12 @@ export default function RegisterPage() {
         value: (value: string, form: RegisterFormType) => {
           return isMatchPassword(value, form);
         },
-        message: "Mật khẩu không khớp",
+        message: 'Mật khẩu không khớp',
       },
     },
   };
 
-  const { form, errors, handleSetForm, onSubmit } = useForm<RegisterFormType>(
-    initForm,
-    initRequire
-  );
+  const { form, errors, handleSetForm, onSubmit } = useForm<RegisterFormType>(initForm, initRequire);
 
   const isMatchPassword = (value: string, form: RegisterFormType) => {
     return value === form.password;
@@ -98,8 +96,8 @@ export default function RegisterPage() {
         password,
       })
     ).then((res) => {
-      if (res.meta.requestStatus === "fulfilled") {
-        router.push("/login");
+      if (res.meta.requestStatus === 'fulfilled') {
+        router.push('/login');
       }
     });
   };
@@ -112,35 +110,35 @@ export default function RegisterPage() {
           <FormInput
             title="Họ Tên Đầy Đủ*"
             placeholder="Vd: Nguyễn Văn A"
-            errorMessage={errors["fullName"]?.message}
+            errorMessage={errors['fullName']?.message}
             onValue={(value: string) => {
-              handleSetForm("fullName", value);
+              handleSetForm('fullName', value);
             }}
           />
           <FormInput
             title="Số điện thoại*"
             placeholder="Vd: 0861234567"
-            errorMessage={errors["phoneNumber"]?.message}
+            errorMessage={errors['phoneNumber']?.message}
             onValue={(value: string) => {
-              handleSetForm("phoneNumber", value);
+              handleSetForm('phoneNumber', value);
             }}
           />
           <FormInput
             type="password"
             title="Mật khẩu*"
             placeholder="********"
-            errorMessage={errors["password"]?.message}
+            errorMessage={errors['password']?.message}
             onValue={(value: string) => {
-              handleSetForm("password", value);
+              handleSetForm('password', value);
             }}
           />
           <FormInput
             type="password"
             title="Nhập lại Mật khẩu*"
             placeholder="********"
-            errorMessage={errors["rePassword"]?.message}
+            errorMessage={errors['rePassword']?.message}
             onValue={(value: string) => {
-              handleSetForm("rePassword", value);
+              handleSetForm('rePassword', value);
             }}
           />
           <div>
@@ -156,9 +154,9 @@ export default function RegisterPage() {
           </div>
           <div className="text-sm">
             Bạn đã có tài khoản?
-            <Link href={"/login"} className="underline ml-1">
+            <WrappedLink href={'/login'} className="underline ml-1">
               Đăng nhập
-            </Link>
+            </WrappedLink>
           </div>
         </div>
       </div>

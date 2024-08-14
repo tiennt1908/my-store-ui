@@ -1,15 +1,16 @@
-"use client";
+'use client';
 
-import Button from "@/components/Button";
-import FormInput from "@/components/FormInput";
-import { IFormRequire, useForm } from "@/customHooks/useForm";
-import { actionAsyncLogin } from "@/redux/slices/auth.slice";
-import { AppDispatch, RootState } from "@/redux/store";
-import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { LoginInput } from "../api/auth/auth.input";
-import { useRouter } from "next/navigation";
-import { actionAsyncGetUserInfo } from "@/redux/slices/user.slice";
+import Button from '@/components/Button';
+import FormInput from '@/components/FormInput';
+import { IFormRequire, useForm } from '@/customHooks/useForm';
+import { actionAsyncLogin } from '@/redux/slices/auth.slice';
+import { AppDispatch, RootState } from '@/redux/store';
+import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
+import { LoginInput } from '../api/auth/auth.input';
+import { useRouter } from 'next/navigation';
+import { actionAsyncGetUserInfo } from '@/redux/slices/user.slice';
+import WrappedLink from '@/components/Wrapped/WrappedLink';
 
 type LoginFormType = {
   phoneNumber: string;
@@ -21,47 +22,44 @@ export default function LoginPage() {
   const router = useRouter();
 
   const initForm: LoginFormType = {
-    phoneNumber: "",
-    password: "",
+    phoneNumber: '',
+    password: '',
   };
 
   const initRequire: IFormRequire = {
     phoneNumber: {
       isRequired: {
         value: true,
-        message: "Yêu cầu không để trống",
+        message: 'Yêu cầu không để trống',
       },
       pattern: {
         value: /^0[0-9]{9}$/,
-        message: "Số điện thoại không hợp lệ",
+        message: 'Số điện thoại không hợp lệ',
       },
     },
     password: {
       isRequired: {
         value: true,
-        message: "Yêu cầu không để trống",
+        message: 'Yêu cầu không để trống',
       },
       minLength: {
         value: 6,
-        message: "Mật khẩu phải có ít nhất 6 ký tự",
+        message: 'Mật khẩu phải có ít nhất 6 ký tự',
       },
       maxLength: {
         value: 32,
-        message: "Mật khẩu tối đa 32 ký tự",
+        message: 'Mật khẩu tối đa 32 ký tự',
       },
     },
   };
 
-  const { form, errors, handleSetForm, onSubmit } = useForm<LoginFormType>(
-    initForm,
-    initRequire
-  );
+  const { form, errors, handleSetForm, onSubmit } = useForm<LoginFormType>(initForm, initRequire);
 
   const login = (input: LoginInput) => {
     dispatch(actionAsyncLogin(input)).then((res) => {
-      if (res.meta.requestStatus === "fulfilled") {
+      if (res.meta.requestStatus === 'fulfilled') {
         dispatch(actionAsyncGetUserInfo());
-        router.push("/");
+        router.push('/');
       }
     });
   };
@@ -74,24 +72,24 @@ export default function LoginPage() {
           <FormInput
             title="Số điện thoại*"
             placeholder="Vd: 0861234567"
-            errorMessage={errors["phoneNumber"]?.message}
+            errorMessage={errors['phoneNumber']?.message}
             onValue={(value: string) => {
-              handleSetForm("phoneNumber", value);
+              handleSetForm('phoneNumber', value);
             }}
           />
           <FormInput
             type="password"
             title="Mật khẩu*"
             placeholder="********"
-            errorMessage={errors["password"]?.message}
+            errorMessage={errors['password']?.message}
             onValue={(value: string) => {
-              handleSetForm("password", value);
+              handleSetForm('password', value);
             }}
           />
           <div className="text-right">
-            <Link href={"/forget"} className="underline text-sm">
+            <WrappedLink href={'/forget'} className="underline text-sm">
               Bạn quên mật khẩu?
-            </Link>
+            </WrappedLink>
           </div>
           <div>
             <Button
@@ -106,9 +104,9 @@ export default function LoginPage() {
           </div>
           <div className="text-sm">
             Bạn chưa có tài khoản?
-            <Link href={"/register"} className="underline ml-1">
+            <WrappedLink href={'/register'} className="underline ml-1">
               Đăng ký ngay
-            </Link>
+            </WrappedLink>
           </div>
         </div>
       </div>

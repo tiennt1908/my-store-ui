@@ -11,6 +11,7 @@ import Select from '../Select';
 import { useSelect } from '@/customHooks/useSelect';
 import Button from '../Button';
 import { actLogout } from '@/redux/slices/user.slice';
+import WrappedLink from '../Wrapped/WrappedLink';
 
 type Props = {};
 
@@ -43,21 +44,21 @@ export default function Header({}: Props) {
   return (
     <header className="flex justify-between bg-white items-center px-6 border-b sticky top-0 z-50" style={{ height: 72 }}>
       <div>
-        <Link href="/">
+        <WrappedLink href="/">
           <Image src="/next.svg" alt="Next.js Logo" width={90} height={18} priority />
-        </Link>
+        </WrappedLink>
       </div>
       <SearchBar />
       <div className="flex gap-3">
         {user.id === 0 && (
           <div className="flex gap-1 items-center text-sm">
-            <Link href="/login" className="hover:underline">
+            <WrappedLink href="/login" className="hover:underline">
               Đăng Nhập
-            </Link>
+            </WrappedLink>
             <span>/</span>
-            <Link href="/register" className="hover:underline">
+            <WrappedLink href="/register" className="hover:underline">
               Đăng Ký
-            </Link>
+            </WrappedLink>
           </div>
         )}
         {user.id > 0 && (
@@ -81,12 +82,12 @@ export default function Header({}: Props) {
           />
         )}
 
-        <Link href="/cart" className="flex gap-1 text-sm hover:cursor-pointer">
+        <WrappedLink href="/cart" className="flex gap-1 text-sm hover:cursor-pointer">
           <Button shadow="none">
             <ShoppingBagIcon className="w-5" />
             <span>Giỏ hàng</span>
           </Button>
-        </Link>
+        </WrappedLink>
       </div>
     </header>
   );

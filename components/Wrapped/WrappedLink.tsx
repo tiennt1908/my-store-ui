@@ -1,5 +1,5 @@
-import Link from "next/link";
-import React, { ReactNode } from "react";
+import Link from 'next/link';
+import React, { ReactNode } from 'react';
 
 type Props = {
   href?: string;
@@ -7,7 +7,7 @@ type Props = {
   [key: string]: unknown;
 };
 
-export default function WrappedLink({ href, children, ...restProps }: Props) {
+export default function WrappedLink({ onRouteChangeStart, href, children, ...restProps }: Props) {
   if (!href) {
     return children;
   }

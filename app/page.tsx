@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { COLLECTION_API } from './api/collection';
 import { PRODUCT_API } from './api/product';
 import Banner from './Banner';
+import WrappedLink from '@/components/Wrapped/WrappedLink';
 
 export default async function Home() {
   const collectionListReq = COLLECTION_API.getList({
@@ -33,9 +34,9 @@ export default async function Home() {
         <div className="bg-white rounded shadow-sm">
           <div className="flex justify-between p-4 border-b">
             <p className="text-lg font-medium text-red-500">Giảm giá nhiều nhất</p>
-            <Link href="/products?sortCol=salePercent&sortType=DESC" className="font-medium">
+            <WrappedLink href="/products?sortCol=salePercent&sortType=DESC" className="font-medium">
               Xem thêm
-            </Link>
+            </WrappedLink>
           </div>
           <div className="grid grid-cols-10 gap-4 p-4">
             {productList.map(({ name, slug, isSaleOff, salePrice, price, salePercent }) => {

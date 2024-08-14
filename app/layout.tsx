@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from './provider';
+import Body from '@/components/Layout/Body';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,14 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Providers>
-        <body className="bg-slate-100" style={{ minWidth: 1280 }}>
+        <Body>
           <GlobalCall />
           <Header />
           <div className="px-4 2xl:px-24 py-4">
             <Auth>{children}</Auth>
           </div>
           <Notify />
-        </body>
+        </Body>
       </Providers>
     </html>
   );

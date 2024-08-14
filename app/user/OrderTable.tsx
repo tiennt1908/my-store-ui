@@ -6,6 +6,7 @@ import OrderRow from './OrderRow';
 import Button from '@/components/Button';
 import Link from 'next/link';
 import { ArchiveBoxXMarkIcon } from '@heroicons/react/24/outline';
+import WrappedLink from '@/components/Wrapped/WrappedLink';
 
 type Props = {};
 
@@ -30,11 +31,11 @@ export default function OrderTable({}: Props) {
         <div className="flex flex-col justify-center items-center gap-2">
           <ArchiveBoxXMarkIcon className="w-14 text-slate-300" />
           <p>Bạn chưa có đơn hàng nào</p>
-          <Link href="/products">
+          <WrappedLink href="/products">
             <Button theme="black" width={150}>
               Mua ngay
             </Button>
-          </Link>
+          </WrappedLink>
         </div>
       </div>
     );

@@ -1,6 +1,7 @@
 'use client';
 
 import Button from '@/components/Button';
+import WrappedLink from '@/components/Wrapped/WrappedLink';
 import { LinkSlashIcon, SignalSlashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
@@ -18,11 +19,11 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
             <p className="text-center font-medium text-lg">Lỗi 404</p>
             <p className="text-base">Không tìm thấy thông tin sản phẩm</p>
           </div>
-          <Link href="/">
+          <WrappedLink href="/">
             <Button theme="black" shadow="none" width="100%">
               Trang Chủ
             </Button>
-          </Link>
+          </WrappedLink>
         </div>
       </div>
     </div>
