@@ -39,7 +39,7 @@ export default async function Home() {
             </WrappedLink>
           </div>
           <div className="grid grid-cols-10 gap-4 p-4">
-            {productList.map(({ name, slug, isSaleOff, salePrice, price, salePercent }) => {
+            {productList.map(({ name, slug, isSaleOff, salePrice, price, salePercent, totalSold }) => {
               return (
                 <Product
                   className="col-span-2"
@@ -49,6 +49,7 @@ export default async function Home() {
                   salePrice={salePrice}
                   price={price}
                   salePercent={salePercent}
+                  totalSold={totalSold}
                 />
               );
             })}

@@ -165,7 +165,7 @@ export default function Products({}: Props) {
             </div>
           </div>
           <div className="w-full grid grid-cols-12 gap-2">
-            {product.list.map(({ id, name, slug, isSaleOff, salePrice, price, salePercent }) => {
+            {product.list.map(({ id, name, slug, isSaleOff, salePrice, price, salePercent, totalSold }) => {
               return (
                 <Product
                   key={id}
@@ -176,6 +176,7 @@ export default function Products({}: Props) {
                   salePrice={salePrice}
                   price={price}
                   salePercent={salePercent}
+                  totalSold={totalSold}
                 />
               );
             })}
