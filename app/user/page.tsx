@@ -4,6 +4,9 @@ import OptionList from '@/components/OptionList';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { IOption } from '../lib/interface/component.interface';
 import OrderTable from './OrderTable';
+import Link from 'next/link';
+import Button from '@/components/Button';
+import { BeakerIcon } from '@heroicons/react/24/outline';
 
 type Props = {};
 
@@ -72,7 +75,10 @@ export default function UserPage({}: Props) {
         <div>
           {mapTab[currentTab] || (
             <div className="bg-white rounded shadow-sm flex justify-center items-center font-medium" style={{ height: 450 }}>
-              Đang xây dựng...
+              <div className="flex flex-col justify-center items-center gap-2">
+                <BeakerIcon className="w-14 text-slate-300" />
+                <p>Đang xây dựng...</p>
+              </div>
             </div>
           )}
         </div>
