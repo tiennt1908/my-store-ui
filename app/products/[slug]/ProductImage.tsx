@@ -24,7 +24,6 @@ export default function ProductImage({ id, slug }: IProduct) {
     setSlideNumber(newSlideNumber);
   };
 
-  console.log(slideNumber, 'slideNumber');
   return (
     <div className="bg-white rounded shadow-sm p-4 flex flex-col gap-4">
       <Slide

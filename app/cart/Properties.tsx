@@ -21,7 +21,6 @@ export default function Properties({ properties }: Props) {
   return (
     <div className="flex gap-2">
       {properties.map((e, i) => {
-        console.log(e.name, 'e.id}');
         return (
           <div key={e.id} className="flex gap-2">
             <p>
