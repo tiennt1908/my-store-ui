@@ -1,11 +1,9 @@
 'use client';
 
 import OptionList from '@/components/OptionList';
-import React from 'react';
-import { IOption } from '../lib/interface/component.interface';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { IOption } from '../lib/interface/component.interface';
 import OrderTable from './OrderTable';
-import Empty from '@/components/Empty';
 
 type Props = {};
 
@@ -71,7 +69,13 @@ export default function UserPage({}: Props) {
         </div>
       </div>
       <div className="col-span-9">
-        <div>{mapTab[currentTab] || <Empty style={{ height: 450 }} />}</div>
+        <div>
+          {mapTab[currentTab] || (
+            <div className="bg-white rounded shadow-sm flex justify-center items-center font-medium" style={{ height: 450 }}>
+              Đang xây dựng...
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

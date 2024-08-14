@@ -135,7 +135,7 @@ export default function Products({}: Props) {
   };
 
   return (
-    <div className="mt-4">
+    <div>
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-3">
           <CategoryBox categoryList={category.list} />

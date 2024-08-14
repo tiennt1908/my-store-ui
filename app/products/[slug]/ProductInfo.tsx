@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import AmountBox from './AmountBox';
 import AttributeBox from './AttributeBox';
 import DescBox from './DescBox';
+import { useRouter } from 'next/navigation';
+import RenderIf from '@/components/RenderIf';
 
 type Props = {
   product: IProduct;
@@ -22,6 +24,7 @@ type OrderForm = {
 };
 
 export default function ProductInfo({ product }: Props) {
+  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const [productProperty, setProductProperty] = useState<GetProductPropertyListOutput>();
   const [propertySelected, setPropertySelected] = useState<IPropertyValueId[]>([]);
@@ -90,7 +93,7 @@ export default function ProductInfo({ product }: Props) {
     });
   }, []);
 
-  const handleAddToCart = (data: OrderForm) => {
+  const handleAddToCart = (data: OrderForm): boolean => {
     const item = cart.mapItems[data.propertyGroupId];
     const isEnough = data.amount * 1 + (item?.amount || 0) * 1 <= (propductPropertyGroup?.amount || 0);
 
@@ -109,6 +112,7 @@ export default function ProductInfo({ product }: Props) {
           },
         ])
       );
+      return true;
     } else {
       dispatch(
         actPushMessages([
@@ -118,11 +122,18 @@ export default function ProductInfo({ product }: Props) {
           },
         ])
       );
+      return false;
+    }
+  };
+  const handleBuyNow = () => {
+    const result = onSubmit(handleAddToCart);
+    if (result) {
+      router.push('/cart');
     }
   };
 
   const priceRender = product.isSaleOff ? product.salePrice : product.price;
-  const salePecent = Math.round(((product.price - product.salePrice) * 100) / product.price || 0);
+  const salePercent = Math.round(((product.price - product.salePrice) * 100) / product.price || 0);
 
   const propductPropertyGroup = productProperty?.optionGroup?.find((e) => e.id === form.propertyGroupId);
 
@@ -131,19 +142,24 @@ export default function ProductInfo({ product }: Props) {
       <p className="text-xl">{product.name}</p>
       <div className="flex gap-2 items-center text-xl">
         <p className="font-medium">{priceRender}đ</p>
-        {product.isSaleOff && (
+        <RenderIf isRender={product.isSaleOff === 1}>
           <div className="flex gap-2">
             <p className="text-slate-400 line-through">{product.price}đ</p>
-            <p className="text-red-500">-{salePecent}%</p>
+            <RenderIf isRender={salePercent >= 0}>
+              <p className="text-red-500">{-1 * Math.round(salePercent)}%</p>
+            </RenderIf>
+            <RenderIf isRender={salePercent < 0}>
+              <p className="text-green-500">+{-1 * Math.round(salePercent)}%</p>
+            </RenderIf>
           </div>
-        )}
+        </RenderIf>
       </div>
       <DescBox desc={product.desc} />
       <AttributeBox productProperty={productProperty} handleSetPropertyGroupId={handleSetPropertyGroupId} />
       {errors['propertyGroupId']?.message && <p className="text-sm text-red-500">{errors['propertyGroupId']?.message}</p>}
       <AmountBox handleSetAmount={handleSetAmount} availableAmount={propductPropertyGroup ? propductPropertyGroup?.amount || 0 : -1} />
       <div className="flex gap-2">
-        <Button className="w-full" shadow="none" theme="black">
+        <Button className="w-full" shadow="none" theme="black" onClick={handleBuyNow}>
           Mua ngay
         </Button>
         <Button

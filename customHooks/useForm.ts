@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export interface IFormRequire {
   [key: string]: {
@@ -67,11 +67,7 @@ export const useForm = <T>(initForm: IForm, initFormRequire: IFormRequire) => {
     pattern: (input: string, pattern: RegExp) => {
       return pattern.test(input);
     },
-    validate: (
-      input: string | number | boolean,
-      validate: Function,
-      form: IForm
-    ) => {
+    validate: (input: string | number | boolean, validate: Function, form: IForm) => {
       return validate(input, form);
     },
   };
@@ -109,7 +105,7 @@ export const useForm = <T>(initForm: IForm, initFormRequire: IFormRequire) => {
     return null;
   };
 
-  const onSubmit = (submit: Function) => {
+  const onSubmit = (submit: Function): boolean => {
     const errorObj: IFormError = {};
     const keys = Object.keys(form);
     const length = keys.length;
@@ -125,8 +121,9 @@ export const useForm = <T>(initForm: IForm, initFormRequire: IFormRequire) => {
     }
     setErrors(errorObj);
     if (Object.keys(errorObj).length === 0) {
-      submit(form);
+      return submit(form);
     }
+    return false;
   };
 
   return {

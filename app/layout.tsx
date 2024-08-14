@@ -1,12 +1,11 @@
+import Auth from '@/components/Layout/Auth';
+import GlobalCall from '@/components/Layout/GlobalCall';
 import Header from '@/components/Layout/Header';
+import Notify from '@/components/Layout/Notify';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from './provider';
-import Notify from '@/components/Layout/Notify';
-import GlobalCall from '@/components/Layout/GlobalCall';
-import Auth from '@/components/Layout/Auth';
-import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,19 +15,17 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  pathName,
   children,
 }: Readonly<{
   children: React.ReactNode;
-  pathName: any;
 }>) {
   return (
     <html lang="en">
       <Providers>
-        <body className="bg-slate-100">
+        <body className="bg-slate-100" style={{ minWidth: 1280 }}>
           <GlobalCall />
           <Header />
-          <div className="px-24 py-4">
+          <div className="px-4 2xl:px-24 py-4">
             <Auth>{children}</Auth>
           </div>
           <Notify />
