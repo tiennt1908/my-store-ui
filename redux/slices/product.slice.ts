@@ -13,7 +13,7 @@ const initialState: ProductSliceState = {
   list: [],
   total: 0,
   maxLimit: 16,
-  isLoading: false,
+  isLoading: true,
 };
 
 export const actionAsyncGetProductList = createAsyncThunk('product/list', async (input: GetProductListInput, { rejectWithValue }) => {

@@ -41,3 +41,19 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
+
+/* Đối với WebKit Browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 5px; /* Độ rộng của scrollbar */
+  height: 12px; /* Chiều cao của scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Màu của thanh cuộn */
+  border-radius: 6px; /* Bo góc của thanh cuộn */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Màu của nền scrollbar */
+  border-radius: 6px;
+}
