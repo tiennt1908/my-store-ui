@@ -59,16 +59,16 @@ export default function Products({}: Props) {
   });
 
   useEffect(() => {
-    const sortCol = searchParams.get('sortCol') || 'totalSold';
-    const sortType = searchParams.get('sortType');
+    const sort = searchParams.get('sort');
     const isSaleOff = searchParams.get('isSaleOff');
     const searchValue = searchParams.get('searchValue');
     const categoryId = searchParams.get('categoryId');
     const collectionId = searchParams.get('collectionId');
 
+    const sortObject = getSortParams(sort || '');
     const input: any = {
-      sortCol,
-      sortType: sortType === 'ASC' ? sortType : 'DESC',
+      sortCol: sortObject.sortCol,
+      sortType: sortObject.sortType,
       categoryId,
       index,
       limit,
@@ -102,31 +102,25 @@ export default function Products({}: Props) {
   }, []);
 
   useEffect(() => {
-    switch (sortSelect.value) {
-      case 'newest':
-        params.set('sortCol', 'id');
-        params.set('sortType', 'DESC');
-        break;
-      case 'sale_off_most':
-        params.set('sortCol', 'salePercent');
-        params.set('sortType', 'DESC');
-        break;
-      case 'price_desc':
-        params.set('sortCol', 'price');
-        params.set('sortType', 'DESC');
-        break;
-      case 'price_asc':
-        params.set('sortCol', 'price');
-        params.set('sortType', 'ASC');
-        break;
-      default:
-        params.set('sortCol', 'totalSold');
-        params.set('sortType', 'DESC');
-        break;
-    }
+    params.set('sort', sortSelect.value as string);
     router.gotoURL(`/products?${params.toString()}`);
   }, [sortSelect.value]);
 
+  const getSortParams = (key: string) => {
+    const sortMap: any = {
+      newest: { sortCol: 'id', sortType: 'DESC' },
+      sale_off_most: { sortCol: 'salePercent', sortType: 'DESC' },
+      price_desc: { sortCol: 'salePrice', sortType: 'DESC' },
+      price_asc: { sortCol: 'salePrice', sortType: 'ASC' },
+    };
+
+    let sortObject = { sortCol: 'totalSold', sortType: 'DESC' };
+    if (sortMap[key]) {
+      sortObject = sortMap[key];
+    }
+
+    return sortObject;
+  };
   const handlePaging = (p: number) => {
     const index = (p - 1) * limit;
     const indexParams = index < product.total ? index : product.total;
