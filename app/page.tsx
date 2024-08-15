@@ -46,16 +46,12 @@ export default async function Home() {
   return (
     <div className="flex flex-col gap-4">
       <Banner collectionList={collectionList} />
-      <ProductListSlide
-        title="Top Sản Phẩm Bán Chạy"
-        hrefViewMore="/products?sortCol=salePercent&sortType=DESC"
-        productList={productBestSellerList}
-      />
-      <ProductListGrid title="Sản Phẩm Mới" productList={productNewestList} hrefViewMore="products?sortCol=id&sortType=DESC" />
+      <ProductListSlide title="Top Sản Phẩm Bán Chạy" hrefViewMore="/products?sort=best_seller" productList={productBestSellerList} />
+      <ProductListGrid title="Sản Phẩm Mới" productList={productNewestList} hrefViewMore="products?sort=newest" />
       <ProductListSlide
         title="Sản Phẩm Giảm Giá"
         titleColor="red"
-        hrefViewMore="/products?sortCol=salePercent&sortType=DESC"
+        hrefViewMore="/products?sort=sale_off_most"
         productList={productSaleOffList}
       />
     </div>

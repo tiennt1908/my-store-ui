@@ -66,6 +66,9 @@ export default function Products({}: Props) {
     const collectionId = searchParams.get('collectionId');
 
     const sortObject = getSortParams(sort || '');
+
+    sortSelect.onSelect(sortObject.key);
+
     const input: any = {
       sortCol: sortObject.sortCol,
       sortType: sortObject.sortType,
@@ -101,20 +104,15 @@ export default function Products({}: Props) {
     dispatch(actionAsyncGetCategoryList({ ...category.paging, ...category.filter }));
   }, []);
 
-  useEffect(() => {
-    params.set('sort', sortSelect.value as string);
-    router.gotoURL(`/products?${params.toString()}`);
-  }, [sortSelect.value]);
-
   const getSortParams = (key: string) => {
     const sortMap: any = {
-      newest: { sortCol: 'id', sortType: 'DESC' },
-      sale_off_most: { sortCol: 'salePercent', sortType: 'DESC' },
-      price_desc: { sortCol: 'salePrice', sortType: 'DESC' },
-      price_asc: { sortCol: 'salePrice', sortType: 'ASC' },
+      newest: { key: 'newest', sortCol: 'id', sortType: 'DESC' },
+      sale_off_most: { key: 'sale_off_most', sortCol: 'salePercent', sortType: 'DESC' },
+      price_desc: { key: 'price_desc', sortCol: 'salePrice', sortType: 'DESC' },
+      price_asc: { key: 'price_asc', sortCol: 'salePrice', sortType: 'ASC' },
     };
 
-    let sortObject = { sortCol: 'totalSold', sortType: 'DESC' };
+    let sortObject = { key: 'best_seller', sortCol: 'totalSold', sortType: 'DESC' };
     if (sortMap[key]) {
       sortObject = sortMap[key];
     }
@@ -128,6 +126,13 @@ export default function Products({}: Props) {
     params.set('index', indexParams.toString());
     params.set('limit', limit.toString());
 
+    router.gotoURL(`/products?${params.toString()}`);
+  };
+
+  const handleSort = (id: unknown) => {
+    sortSelect.onSelect(id);
+
+    params.set('sort', id as string);
     router.gotoURL(`/products?${params.toString()}`);
   };
 
@@ -155,7 +160,7 @@ export default function Products({}: Props) {
                 }}
                 isOpen={sortSelect.isOpen}
                 onClose={sortSelect.onClose}
-                onSelect={sortSelect.onSelect}
+                onSelect={handleSort}
                 onToggle={sortSelect.onToggle}
                 value={sortSelect.value as string}
               />
