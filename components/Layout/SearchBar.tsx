@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import Input from '../Input';
+import { usePushURL } from '@/customHooks/usePushURL';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import Input from '../Input';
 
 type Props = {};
 
 export default function SearchBar({}: Props) {
   const searchParams = useSearchParams();
-  const router = useRouter();
+  const router = usePushURL();
   const [value, setValue] = useState<string>('');
 
   const handleSetSearchValue = (val: string) => {
@@ -17,7 +18,7 @@ export default function SearchBar({}: Props) {
     if (event.key === 'Enter') {
       const params = new URLSearchParams(searchParams.toString());
       params.set('searchValue', value);
-      router.push(`/products?${params.toString()}`);
+      router.gotoURL(`/products?${params.toString()}`);
     }
   };
 

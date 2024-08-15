@@ -1,17 +1,16 @@
 'use client';
 
 import OptionList from '@/components/OptionList';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePushURL } from '@/customHooks/usePushURL';
+import { BeakerIcon } from '@heroicons/react/24/outline';
+import { useSearchParams } from 'next/navigation';
 import { IOption } from '../lib/interface/component.interface';
 import OrderTable from './OrderTable';
-import Link from 'next/link';
-import Button from '@/components/Button';
-import { BeakerIcon } from '@heroicons/react/24/outline';
 
 type Props = {};
 
 export default function UserPage({}: Props) {
-  const router = useRouter();
+  const router = usePushURL();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
 
@@ -50,7 +49,7 @@ export default function UserPage({}: Props) {
 
   const handleSelect = (id: string) => {
     params.set('tab', id);
-    router.push(`user?${params.toString()}`);
+    router.gotoURL(`user?${params.toString()}`);
   };
 
   const mapTab: any = {

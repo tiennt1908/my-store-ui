@@ -1,11 +1,10 @@
 'use server';
 
 import Product from '@/components/Product';
-import Link from 'next/link';
+import WrappedLink from '@/components/Wrapped/WrappedLink';
 import { COLLECTION_API } from './api/collection';
 import { PRODUCT_API } from './api/product';
 import Banner from './Banner';
-import WrappedLink from '@/components/Wrapped/WrappedLink';
 
 export default async function Home() {
   const collectionListReq = COLLECTION_API.getList({

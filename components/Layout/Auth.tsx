@@ -1,9 +1,9 @@
 'use client';
 
-import { usePushRoute } from '@/customHooks/usePushRoute';
+import { usePushURL } from '@/customHooks/usePushURL';
 import { RootState } from '@/redux/store';
-import { usePathname, useRouter } from 'next/navigation';
-import { ReactNode, useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { ReactNode, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 export default function Auth({ children }: Props) {
   const pathname = usePathname();
   const user = useSelector((state: RootState) => state.user.info);
-  const router = useRouter();
+  const router = usePushURL();
 
   const requireNotLogin: string[] = ['/login', '/register'];
   const requireLogin: string[] = ['/user'];
@@ -21,13 +21,13 @@ export default function Auth({ children }: Props) {
   useEffect(() => {
     if (user.isLoaded && user.id > 0) {
       if (requireNotLogin.indexOf(pathname) > -1) {
-        return router.push('/');
+        return router.gotoURL('/');
       }
     }
 
     if (user.isLoaded && user.id === 0) {
       if (requireLogin.indexOf(pathname) > -1) {
-        return router.push('/login');
+        return router.gotoURL('/login');
       }
     }
   }, [user.isLoading, pathname]);

@@ -1,22 +1,25 @@
 'use client';
 
+import Paging from '@/components/Paging';
 import Product from '@/components/Product';
 import Select from '@/components/Select';
+import { usePushURL } from '@/customHooks/usePushURL';
 import { useSelect } from '@/customHooks/useSelect';
 import { actionAsyncGetCategoryList } from '@/redux/slices/category.slice';
 import { actionAsyncGetProductList } from '@/redux/slices/product.slice';
 import { AppDispatch, RootState } from '@/redux/store';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryBox from './CategoryBox';
-import Paging from '@/components/Paging';
+import RenderIf from '@/components/RenderIf';
+import ProductListSkeleton from './ProductListSkeleton';
 
 type Props = {};
 
 export default function Products({}: Props) {
   const dispatch = useDispatch<AppDispatch>();
-  const router = useRouter();
+  const router = usePushURL();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
 
@@ -121,7 +124,7 @@ export default function Products({}: Props) {
         params.set('sortType', 'DESC');
         break;
     }
-    router.push(`/products?${params.toString()}`);
+    router.gotoURL(`/products?${params.toString()}`);
   }, [sortSelect.value]);
 
   const handlePaging = (p: number) => {
@@ -131,7 +134,7 @@ export default function Products({}: Props) {
     params.set('index', indexParams.toString());
     params.set('limit', limit.toString());
 
-    router.push(`/products?${params.toString()}`);
+    router.gotoURL(`/products?${params.toString()}`);
   };
 
   return (
@@ -164,23 +167,31 @@ export default function Products({}: Props) {
               />
             </div>
           </div>
-          <div className="w-full grid grid-cols-12 gap-2">
-            {product.list.map(({ id, name, slug, isSaleOff, salePrice, price, salePercent, totalSold }) => {
-              return (
-                <Product
-                  key={id}
-                  className="col-span-3 bg-white p-2 rounded shadow-sm"
-                  name={name}
-                  slug={slug}
-                  isSaleOff={isSaleOff}
-                  salePrice={salePrice}
-                  price={price}
-                  salePercent={salePercent}
-                  totalSold={totalSold}
-                />
-              );
-            })}
-          </div>
+          <RenderIf isRender={product.isLoading}>
+            <ProductListSkeleton />
+          </RenderIf>
+          <RenderIf isRender={!product.isLoading}>
+            <div>
+              <div className="w-full grid grid-cols-12 gap-2">
+                {product.list.map(({ id, name, slug, isSaleOff, salePrice, price, salePercent, totalSold }) => {
+                  return (
+                    <Product
+                      key={id}
+                      className="col-span-3 bg-white p-2 rounded shadow-sm"
+                      name={name}
+                      slug={slug}
+                      isSaleOff={isSaleOff}
+                      salePrice={salePrice}
+                      price={price}
+                      salePercent={salePercent}
+                      totalSold={totalSold}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </RenderIf>
+
           <div className="flex justify-center">
             <div className="bg-white shadow-sm rounded overflow-hidden">
               <Paging

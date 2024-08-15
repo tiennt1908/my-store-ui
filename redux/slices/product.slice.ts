@@ -12,7 +12,7 @@ interface ProductSliceState {
 const initialState: ProductSliceState = {
   list: [],
   total: 0,
-  maxLimit: 100,
+  maxLimit: 16,
   isLoading: false,
 };
 

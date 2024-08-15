@@ -4,6 +4,7 @@ import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
 import WrappedLink from '@/components/Wrapped/WrappedLink';
 import { IFormRequire, useForm } from '@/customHooks/useForm';
+import { usePushURL } from '@/customHooks/usePushURL';
 import { actionAsyncRegister } from '@/redux/slices/auth.slice';
 import { AppDispatch } from '@/redux/store';
 import Link from 'next/link';
@@ -20,7 +21,7 @@ type RegisterFormType = {
 
 export default function RegisterPage() {
   const dispatch = useDispatch<AppDispatch>();
-  const router = useRouter();
+  const router = usePushURL();
 
   const initForm: RegisterFormType = {
     fullName: '',
@@ -97,7 +98,7 @@ export default function RegisterPage() {
       })
     ).then((res) => {
       if (res.meta.requestStatus === 'fulfilled') {
-        router.push('/login');
+        router.gotoURL('/login');
       }
     });
   };

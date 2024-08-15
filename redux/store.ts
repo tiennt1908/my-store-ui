@@ -6,6 +6,7 @@ import CartReducer from './slices/cart.slice';
 import OrderReducer from './slices/order.slice';
 import ProductReducer from './slices/product.slice';
 import CategoryReducer from './slices/category.slice';
+import UIReducer from './slices/ui.slice';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     order: OrderReducer,
     product: ProductReducer,
     category: CategoryReducer,
+    ui: UIReducer,
   },
 });
 

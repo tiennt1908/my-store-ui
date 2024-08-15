@@ -14,6 +14,7 @@ import AttributeBox from './AttributeBox';
 import DescBox from './DescBox';
 import { useRouter } from 'next/navigation';
 import RenderIf from '@/components/RenderIf';
+import { usePushURL } from '@/customHooks/usePushURL';
 
 type Props = {
   product: IProduct;
@@ -24,7 +25,7 @@ type OrderForm = {
 };
 
 export default function ProductInfo({ product }: Props) {
-  const router = useRouter();
+  const router = usePushURL();
   const dispatch = useDispatch<AppDispatch>();
   const [productProperty, setProductProperty] = useState<GetProductPropertyListOutput>();
   const [propertySelected, setPropertySelected] = useState<IPropertyValueId[]>([]);
@@ -128,7 +129,7 @@ export default function ProductInfo({ product }: Props) {
   const handleBuyNow = () => {
     const result = onSubmit(handleAddToCart);
     if (result) {
-      router.push('/cart');
+      router.gotoURL('/cart');
     }
   };
 
@@ -139,7 +140,7 @@ export default function ProductInfo({ product }: Props) {
 
   return (
     <div className="flex flex-col gap-4 px-4 bg-white rounded shadow-sm p-4">
-      <p className="text-xl">{product.name}</p>
+      <h1 className="text-xl">{product.name}</h1>
       <div className="flex gap-2 items-center text-xl">
         <p className="font-medium">{priceRender}đ</p>
         <RenderIf isRender={product.isSaleOff === 1}>
