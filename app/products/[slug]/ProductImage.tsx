@@ -2,12 +2,14 @@
 
 import { PRODUCT_API } from '@/app/api/product';
 import { IProduct, IProductImage } from '@/app/api/product/product.output';
+import RenderIf from '@/components/RenderIf';
 import Slide from '@/components/Slide';
 import { useEffect, useState } from 'react';
 import Image from './Image';
 import ProductThumbnail from './ProductThumbnail';
-import RenderIf from '@/components/RenderIf';
-import Loading from '@/components/Loading';
+import Skeleton from '@/components/Skeleton';
+import Thumbnail from '@/components/Thumbnail';
+import ProductImageSkeleton from './ProductImageSkeleton';
 
 export default function ProductImage({ id, slug }: IProduct) {
   const [isLoading, setLoading] = useState<boolean>(true);
@@ -50,7 +52,7 @@ export default function ProductImage({ id, slug }: IProduct) {
         <ProductThumbnail slideNumber={slideNumber} onChangeSlide={handleSetSlideNumber} images={images} slug={slug} />
       </RenderIf>
       <RenderIf isRender={isLoading}>
-        <Loading />
+        <ProductImageSkeleton />
       </RenderIf>
     </div>
   );

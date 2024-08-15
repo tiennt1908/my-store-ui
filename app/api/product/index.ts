@@ -28,6 +28,8 @@ export const PRODUCT_API = {
       params: input,
     });
 
+    await TIMER_UTILS.sleep(1000);
+
     return data;
   },
 
