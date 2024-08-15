@@ -22,7 +22,7 @@ const initialState: CategorySliceState = {
     limit: 100,
   },
   filter: {},
-  isLoading: false,
+  isLoading: true,
 };
 
 export const actionAsyncGetCategoryList = createAsyncThunk(

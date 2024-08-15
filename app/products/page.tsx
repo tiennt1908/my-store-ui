@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CategoryBox from './CategoryBox';
 import RenderIf from '@/components/RenderIf';
 import ProductListSkeleton from './ProductListSkeleton';
+import CategorySkeleton from './CategorySkeleton';
 
 type Props = {};
 
@@ -140,7 +141,12 @@ export default function Products({}: Props) {
     <div>
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-3">
-          <CategoryBox categoryList={category.list} />
+          <RenderIf isRender={!category.isLoading}>
+            <CategoryBox categoryList={category.list} />
+          </RenderIf>
+          <RenderIf isRender={category.isLoading}>
+            <CategorySkeleton />
+          </RenderIf>
         </div>
         <div className="col-span-9 flex flex-col gap-2">
           <div className="flex justify-between items-center">
