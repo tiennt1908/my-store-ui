@@ -3,7 +3,7 @@ import { PagingInput } from '../general/input.general';
 export interface GetProductListInput extends PagingInput {
   sortCol: string;
   sortType: string;
-  isSaleOff: 0 | 1;
+  isSaleOff?: 0 | 1;
   searchValue?: string;
   categoryId?: number;
   collectionId?: number;

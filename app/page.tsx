@@ -1,60 +1,63 @@
 'use server';
 
-import Product from '@/components/Product';
-import WrappedLink from '@/components/Wrapped/WrappedLink';
+import ProductListGrid from '@/components/ProductListGrid';
+import ProductListSlide from '@/components/ProductListSlide';
 import { COLLECTION_API } from './api/collection';
 import { PRODUCT_API } from './api/product';
+import { IProduct } from './api/product/product.output';
 import Banner from './Banner';
 
 export default async function Home() {
+  const requests: Promise<any>[] = [];
   const collectionListReq = COLLECTION_API.getList({
     index: 0,
     limit: 3,
     isActive: 1,
   });
-  const productListReq = PRODUCT_API.getList({
+  const productSaleOffListReq = PRODUCT_API.getList({
     index: 0,
-    limit: 5,
+    limit: 10,
     isSaleOff: 1,
     sortCol: 'salePercent',
     sortType: 'DESC',
   });
+  const productNewestListReq = PRODUCT_API.getList({
+    index: 0,
+    limit: 10,
+    sortCol: 'id',
+    sortType: 'DESC',
+  });
+  const productBestSellerListReq = PRODUCT_API.getList({
+    index: 0,
+    limit: 4,
+    sortCol: 'totalSold',
+    sortType: 'DESC',
+  });
+  requests.push(...[collectionListReq, productSaleOffListReq, productNewestListReq, productBestSellerListReq]);
 
-  const [collectionListRes, productListRes] = await Promise.all([collectionListReq, productListReq]);
+  const [collectionListRes, productSaleOffListRes, productNewestListRes, productBestSellerListRes] = await Promise.all(requests);
 
   const collectionList = collectionListRes.data.list;
 
-  const productList = productListRes.data.list;
+  const productSaleOffList: IProduct[] = productSaleOffListRes.data.list;
+  const productNewestList: IProduct[] = productNewestListRes.data.list;
+  const productBestSellerList: IProduct[] = productBestSellerListRes.data.list;
 
   return (
     <div className="flex flex-col gap-4">
       <Banner collectionList={collectionList} />
-      <div>
-        <div className="bg-white rounded shadow-sm">
-          <div className="flex justify-between p-4 border-b">
-            <p className="text-lg font-medium text-red-500">Giảm giá nhiều nhất</p>
-            <WrappedLink href="/products?sortCol=salePercent&sortType=DESC" className="font-medium">
-              Xem thêm
-            </WrappedLink>
-          </div>
-          <div className="grid grid-cols-10 gap-4 p-4">
-            {productList.map(({ name, slug, isSaleOff, salePrice, price, salePercent, totalSold }) => {
-              return (
-                <Product
-                  className="col-span-2"
-                  name={name}
-                  slug={slug}
-                  isSaleOff={isSaleOff}
-                  salePrice={salePrice}
-                  price={price}
-                  salePercent={salePercent}
-                  totalSold={totalSold}
-                />
-              );
-            })}
-          </div>
-        </div>
-      </div>
+      <ProductListSlide
+        title="Top Sản Phẩm Bán Chạy"
+        hrefViewMore="/products?sortCol=salePercent&sortType=DESC"
+        productList={productBestSellerList}
+      />
+      <ProductListGrid title="Sản Phẩm Mới" productList={productNewestList} hrefViewMore="products?sortCol=id&sortType=DESC" />
+      <ProductListSlide
+        title="Sản Phẩm Giảm Giá"
+        titleColor="red"
+        hrefViewMore="/products?sortCol=salePercent&sortType=DESC"
+        productList={productSaleOffList}
+      />
     </div>
   );
 }

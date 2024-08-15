@@ -44,7 +44,7 @@ input[type='number'] {
 
 /* Đối với WebKit Browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
-  width: 5px; /* Độ rộng của scrollbar */
+  width: 0px; /* Độ rộng của scrollbar */
   height: 12px; /* Chiều cao của scrollbar */
 }
 

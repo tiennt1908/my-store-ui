@@ -104,7 +104,7 @@ export default function Products({}: Props) {
   useEffect(() => {
     switch (sortSelect.value) {
       case 'newest':
-        params.set('sortCol', 'createAt');
+        params.set('sortCol', 'id');
         params.set('sortType', 'DESC');
         break;
       case 'sale_off_most':
@@ -198,7 +198,6 @@ export default function Products({}: Props) {
                 rounded="none"
                 onValue={handlePaging}
                 index={index}
-                bord
                 limit={limit}
                 total={product.total}
                 width={40}

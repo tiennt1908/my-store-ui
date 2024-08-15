@@ -6,6 +6,7 @@ import RenderIf from './RenderIf';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 type Props = {
+  gap?: string;
   isTransition?: boolean;
   isDot?: boolean;
 
@@ -31,6 +32,7 @@ type Props = {
 };
 
 export default function Slide({
+  gap = '0rem',
   isTransition = true,
   isDot = false,
   elementInSlide = 1,
@@ -71,7 +73,7 @@ export default function Slide({
     const clonedChildren = React.isValidElement(childrenArray[index])
       ? React.cloneElement(childrenArray[index] as React.ReactElement<any>, {
           style: {
-            width: `${100 / childCount}%`,
+            width: `calc(${100 / childCount}% - (${gap}* ${childCount - 1}) / ${childCount})`,
             userSelect: 'none',
           },
         })
@@ -106,8 +108,9 @@ export default function Slide({
   let translateX = (currentSlide * -100) / childCount;
 
   const styleSlide: CSSProperties = {
-    width: `${(childCount / elementInSlide) * 100}%`,
-    transform: `translateX(${translateX}%)`,
+    width: `calc(${(childCount / elementInSlide) * 100}% + ${gap}*${Math.round(childCount / elementInSlide) - 1})`,
+    transform: `translateX(calc(${translateX}% - (${currentSlide}*${gap})/${childCount}))`,
+    gap,
     ...style,
   };
 
