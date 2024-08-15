@@ -25,9 +25,10 @@ export default function ProductListGrid({ title, titleColor = 'slate', productLi
       </div>
       <div className="p-4">
         <div className="grid grid-cols-10 gap-4">
-          {productList.map(({ name, slug, isSaleOff, salePrice, price, salePercent, totalSold }) => {
+          {productList.map(({ id, name, slug, isSaleOff, salePrice, price, salePercent, totalSold }) => {
             return (
               <Product
+                id={id}
                 className="col-span-2"
                 name={name}
                 slug={slug}

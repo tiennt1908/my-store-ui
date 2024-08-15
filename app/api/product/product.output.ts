@@ -10,6 +10,7 @@ export interface IProduct {
   totalSupply: number;
   totalSold: number;
   isSaleOff: 0 | 1;
+  categoryId: number;
   createAt: number;
 }
 export interface IProductImage {

@@ -139,26 +139,28 @@ export default function ProductInfo({ product }: Props) {
   const propductPropertyGroup = productProperty?.optionGroup?.find((e) => e.id === form.propertyGroupId);
 
   return (
-    <div className="flex flex-col gap-4 px-4 bg-white rounded shadow-sm p-4">
-      <h1 className="text-xl">{product.name}</h1>
-      <div className="flex gap-2 items-center text-xl">
-        <p className="font-medium">{priceRender}đ</p>
-        <RenderIf isRender={product.isSaleOff === 1}>
-          <div className="flex gap-2">
-            <p className="text-slate-400 line-through">{product.price}đ</p>
-            <RenderIf isRender={salePercent >= 0}>
-              <p className="text-red-500">{-1 * Math.round(salePercent)}%</p>
-            </RenderIf>
-            <RenderIf isRender={salePercent < 0}>
-              <p className="text-green-500">+{-1 * Math.round(salePercent)}%</p>
-            </RenderIf>
-          </div>
-        </RenderIf>
+    <div className="flex flex-col justify-between gap-4 px-4 bg-white rounded shadow-sm p-4 h-full">
+      <div className="flex flex-col gap-4">
+        <h1 className="text-xl">{product.name}</h1>
+        <div className="flex gap-2 items-center text-xl">
+          <p className="font-medium">{priceRender}đ</p>
+          <RenderIf isRender={product.isSaleOff === 1}>
+            <div className="flex gap-2">
+              <p className="text-slate-400 line-through">{product.price}đ</p>
+              <RenderIf isRender={salePercent >= 0}>
+                <p className="text-red-500">{-1 * Math.round(salePercent)}%</p>
+              </RenderIf>
+              <RenderIf isRender={salePercent < 0}>
+                <p className="text-green-500">+{-1 * Math.round(salePercent)}%</p>
+              </RenderIf>
+            </div>
+          </RenderIf>
+        </div>
+        <DescBox desc={product.desc} />
+        <AttributeBox productProperty={productProperty} handleSetPropertyGroupId={handleSetPropertyGroupId} />
+        {errors['propertyGroupId']?.message && <p className="text-sm text-red-500">{errors['propertyGroupId']?.message}</p>}
+        <AmountBox handleSetAmount={handleSetAmount} availableAmount={propductPropertyGroup ? propductPropertyGroup?.amount || 0 : -1} />
       </div>
-      <DescBox desc={product.desc} />
-      <AttributeBox productProperty={productProperty} handleSetPropertyGroupId={handleSetPropertyGroupId} />
-      {errors['propertyGroupId']?.message && <p className="text-sm text-red-500">{errors['propertyGroupId']?.message}</p>}
-      <AmountBox handleSetAmount={handleSetAmount} availableAmount={propductPropertyGroup ? propductPropertyGroup?.amount || 0 : -1} />
       <div className="flex gap-2">
         <Button className="w-full" shadow="none" theme="black" onClick={handleBuyNow}>
           Mua ngay
