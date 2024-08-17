@@ -21,7 +21,7 @@ export default function CategoryBox({ categoryList }: Props) {
               key={e.id}
               id={e.id}
               content={e.name}
-              child={e.child?.map((c) => {
+              optionList={e.child?.map((c) => {
                 return {
                   id: c.id,
                   content: c.name,

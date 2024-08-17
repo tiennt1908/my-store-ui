@@ -18,7 +18,7 @@ import { usePathname } from 'next/navigation';
 import WrappedTheme from './Wrapped/WrappedTheme';
 
 interface DropListProps extends IOption {
-  child?: IOption[];
+  optionList?: IOption[];
 
   isShow?: boolean;
 
@@ -39,7 +39,7 @@ export default function DropList({
   icon,
   content,
   href,
-  child = [],
+  optionList = [],
 
   isShow = false,
 
@@ -126,7 +126,7 @@ export default function DropList({
     lg: 36,
     xl: 40,
   };
-  const heightList = heightMap[size] * (child?.length || 0);
+  const heightList = heightMap[size] * (optionList?.length || 0);
 
   const parentClass = `
     overflow-hidden 
@@ -182,8 +182,8 @@ export default function DropList({
           darkTheme={darkTheme}
           size={size}
           isIconRounded={isIconRounded}
-          value={window.location.pathname + window.location.search}
-          optionList={child || []}
+          selectValue={window.location.pathname + window.location.search}
+          optionList={optionList || []}
           modeSelected={modeSelected}
         />
       </div>
