@@ -1,4 +1,4 @@
-import { IOrderDetail, IOrderItem } from '../api/order/order.output';
+import { IOrderItem } from '../api/order/order.output';
 import OrderFooter from './OrderFooter';
 import OrderHeader from './OrderHeader';
 import OrderItem from './OrderItem';

@@ -8,7 +8,7 @@ type Props = {
 
 export default function SpacingText({ className, children, ...restProps }: Props) {
   return (
-    <div className={`flex justify-between ${className}`} {...restProps}>
+    <div className={`flex justify-between items-center ${className ? className : ''}`} {...restProps}>
       {children}
     </div>
   );

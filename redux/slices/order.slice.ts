@@ -28,7 +28,7 @@ interface OrderSliceState {
 }
 const initialState: OrderSliceState = {
   mapItem: {
-    isLoading: false,
+    isLoading: true,
   },
   list: [],
   total: 0,
@@ -44,7 +44,7 @@ const initialState: OrderSliceState = {
     sortCol: 'id',
     sortType: 'DESC',
   },
-  isLoading: false,
+  isLoading: true,
 };
 
 export const actionAsyncCreateOrder = createAsyncThunk('order/create', async (input: CreateOrderInput, { rejectWithValue, dispatch }) => {

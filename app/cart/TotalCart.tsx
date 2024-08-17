@@ -29,19 +29,19 @@ export default function TotalCart({ products, mapItems }: Props) {
       <div className="flex flex-col gap-2">
         <SpacingText>
           <p>Giá trị đơn hàng:</p>
-          <p>{totalProductValue}đ</p>
+          <p className="font-medium">{totalProductValue}đ</p>
         </SpacingText>
         <SpacingText>
           <p>Số lượng:</p>
-          <p>{productCount}</p>
+          <p className="font-medium">{productCount}</p>
         </SpacingText>
         <SpacingText className="text-red-500">
           <p>Giảm giá:</p>
-          <p>{totalSaleValue}đ</p>
+          <p className="font-medium">{totalSaleValue}đ</p>
         </SpacingText>
         <SpacingText className="font-medium">
           <p>Thành tiền:</p>
-          <p>{totalProductSaleValue}đ</p>
+          <p className="text-lg">{totalProductSaleValue}đ</p>
         </SpacingText>
       </div>
     </div>

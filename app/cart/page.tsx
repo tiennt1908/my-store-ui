@@ -26,8 +26,8 @@ export default function CartPage({}: Props) {
   });
 
   return (
-    <div>
-      <h1 className="text-lg font-medium my-4">Giỏ hàng của bạn</h1>
+    <div className="flex flex-col gap-4">
+      <h1 className="text-lg font-medium">Giỏ hàng của bạn</h1>
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-8">
           <div className="bg-white rounded shadow-sm" style={{ minHeight: 180 * 3 }}>

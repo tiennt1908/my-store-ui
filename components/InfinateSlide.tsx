@@ -50,6 +50,8 @@ export default function InfinateSlide({
   style,
 }: Props) {
   const [currentSlide, setCurrentSlide] = useState(gotoSlide);
+  const [dotIndex, setDotIndex] = useState(gotoSlide);
+
   const [transitionStatus, setTransitionStatus] = useState(isTransition);
   const [isAutoSlide, setIsAutoSlide] = useState<boolean>(isAuto);
 
@@ -74,6 +76,7 @@ export default function InfinateSlide({
       } else {
         setCurrentSlide(1);
       }
+      setDotIndex(1);
     }
 
     if (currentSlide === 0) {
@@ -85,6 +88,7 @@ export default function InfinateSlide({
       } else {
         setCurrentSlide(childCount);
       }
+      setDotIndex(childCount);
     }
 
     if (isAutoSlide) {
@@ -104,6 +108,7 @@ export default function InfinateSlide({
 
   useEffect(() => {
     setCurrentSlide(gotoSlide);
+    setDotIndex(gotoSlide);
   }, [gotoSlide]);
 
   const handleCloneSlide = (index: number) => {
@@ -130,6 +135,7 @@ export default function InfinateSlide({
         onSlideChange(slideNumber);
       }
       setCurrentSlide(slideNumber);
+      setDotIndex(slideNumber);
     }
   };
   const handleNextSlide = () => {
@@ -198,7 +204,7 @@ export default function InfinateSlide({
                     rounded="full"
                     width={10}
                     height={10}
-                    style={{ padding: 0, opacity: e === currentSlide ? 1 : 0.5 }}
+                    style={{ padding: 0, opacity: e === dotIndex ? 1 : 0.5 }}
                     {...dotProps}
                   />
                 );
@@ -219,3 +225,4 @@ export default function InfinateSlide({
     </div>
   );
 }
+[3, 1, 2, 3, 1];

@@ -25,7 +25,7 @@ export default function OrderTable({}: Props) {
     }
   }, [order.list]);
 
-  if (order.list.length === 0) {
+  if (order.list.length === 0 && !order.isLoading) {
     return (
       <div className="bg-white rounded shadow-sm flex justify-center items-center font-medium" style={{ height: 450 }}>
         <div className="flex flex-col justify-center items-center gap-2">

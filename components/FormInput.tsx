@@ -1,5 +1,5 @@
-import React from "react";
-import Input from "./Input";
+import React from 'react';
+import Input from './Input';
 
 type Props = {
   title: string;
@@ -8,12 +8,7 @@ type Props = {
   [key: string]: unknown;
 };
 
-export default function FormInput({
-  onValue,
-  title,
-  errorMessage,
-  ...restProps
-}: Props) {
+export default function FormInput({ onValue, title, errorMessage, ...restProps }: Props) {
   return (
     <div>
       <p className="text-sm">{title}</p>
