@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { OrderItemInput } from '../api/order/order.input';
 
 type OrderInfoFormType = {
+  recipientName: string;
   address: string;
   phoneNumber: string;
 };
@@ -17,10 +18,21 @@ type Props = {
 };
 export default function CartInfo({ orderItems }: Props) {
   const initForm: OrderInfoFormType = {
+    recipientName: '',
     address: '',
     phoneNumber: '',
   };
   const initRequire: IFormRequire = {
+    recipientName: {
+      minLength: {
+        value: 1,
+        message: 'Tên người nhận tối thiểu 1 ký tự',
+      },
+      maxLength: {
+        value: 42,
+        message: 'Tên người nhận không quá 42 ký tự',
+      },
+    },
     address: {
       minLength: {
         value: 12,
@@ -38,7 +50,7 @@ export default function CartInfo({ orderItems }: Props) {
       },
     },
   };
-  const { handleSetForm, errors, form, onSubmit } = useForm<OrderInfoFormType>(initForm, initRequire);
+  const { handleSetForm, errors, form, setForm, onSubmit } = useForm<OrderInfoFormType>(initForm, initRequire);
 
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user.info);
@@ -65,13 +77,25 @@ export default function CartInfo({ orderItems }: Props) {
 
   useEffect(() => {
     if (user.id) {
-      handleSetForm('phoneNumber', user.phoneNumber);
+      setForm({
+        ...form,
+        phoneNumber: user.phoneNumber,
+        recipientName: user.fullName,
+      });
     }
   }, [user.id]);
 
   return (
     <div className="bg-white rounded shadow-sm p-4 flex flex-col gap-4">
       <p className="text-center font-medium">Thông tin đặt hàng</p>
+      <FormInput
+        title="Tên người nhận:"
+        onValue={(value: string) => {
+          handleSetForm('recipientName', value);
+        }}
+        value={form.recipientName}
+        errorMessage={errors['recipientName']?.message}
+      />
       <FormInput
         title="SĐT người nhận:"
         onValue={(value: string) => {

@@ -1,5 +1,6 @@
 export interface IOrder {
   id: number;
+  recipientName: string;
   address: string;
   phoneNumber: string;
   createAt: number;
