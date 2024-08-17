@@ -10,11 +10,10 @@ import {
   ThemeOption,
 } from '@/app/lib/type/decoration.type';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
 import Button from './Button';
 import OptionList from './OptionList';
-import { useState } from 'react';
 import WrappedLink from './Wrapped/WrappedLink';
-import { usePathname } from 'next/navigation';
 import WrappedTheme from './Wrapped/WrappedTheme';
 
 interface DropListProps extends IOption {
