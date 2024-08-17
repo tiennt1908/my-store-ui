@@ -62,7 +62,7 @@ export default function UserPage({}: Props) {
         <div className="py-3 bg-white rounded shadow-sm">
           <OptionList
             modeSelected="background"
-            value={currentTab}
+            selectValue={currentTab}
             onSelect={handleSelect}
             optionList={menuList}
             shadow="none"

@@ -26,7 +26,7 @@ export type OptionListProps = {
   modeSelected?: ModeSelectedOption;
   isIconRounded?: boolean;
   onSelect?: Function;
-  value?: unknown;
+  selectValue?: unknown;
 
   [key: string]: unknown;
 };
