@@ -1,4 +1,4 @@
-import ProductSkeleton from '@/components/ProductSkeleton';
+import ProductSkeleton from '@/components/Pages/ProductSkeleton';
 import React from 'react';
 
 type Props = {};

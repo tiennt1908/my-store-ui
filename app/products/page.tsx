@@ -1,7 +1,6 @@
 'use client';
 
 import Paging from '@/components/Paging';
-import Product from '@/components/Product';
 import Select from '@/components/Select';
 import { usePushURL } from '@/customHooks/usePushURL';
 import { useSelect } from '@/customHooks/useSelect';
@@ -15,6 +14,7 @@ import CategoryBox from './CategoryBox';
 import RenderIf from '@/components/RenderIf';
 import ProductListSkeleton from './ProductListSkeleton';
 import CategorySkeleton from './CategorySkeleton';
+import Product from '@/components/Pages/Product';
 
 type Props = {};
 

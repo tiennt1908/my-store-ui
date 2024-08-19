@@ -31,9 +31,6 @@ export const actionAsyncGetCartProductDetail = createAsyncThunk(
   'cart/products',
   async ({ ids }: GetProductCartByPropertyGroupIdsInput, { rejectWithValue }) => {
     try {
-      // const cart = JSON.parse(localStorage.getItem(CART_STORAGE) || '{}');
-      // const ids = Object.keys(cart);
-
       if (ids.length === 0) {
         return rejectWithValue('Không có sản phẩm trong giỏ hàng');
       }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ICollection } from './api/collection/collection.output';
-import CollectionBanner from '@/components/CollectionBanner';
 import InfinateSlide from '@/components/InfinateSlide';
+import CollectionBanner from './CollectionBanner';
 
 type Props = {
   collectionList: ICollection[];

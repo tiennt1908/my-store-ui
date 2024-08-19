@@ -1,11 +1,11 @@
 'use server';
 
-import ProductListGrid from '@/components/ProductListGrid';
-import ProductListSlide from '@/components/ProductListSlide';
+import ProductListSlide from '@/components/Pages/ProductListSlide';
 import { COLLECTION_API } from './api/collection';
 import { PRODUCT_API } from './api/product';
 import { IProduct } from './api/product/product.output';
 import Banner from './Banner';
+import ProductListGrid from '@/components/Pages/ProductListGrid';
 
 export default async function Home() {
   const requests: Promise<any>[] = [];

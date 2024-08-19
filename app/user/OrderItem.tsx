@@ -1,11 +1,9 @@
-import Image from 'next/image';
-import React from 'react';
-import { GET_IMAGE_URL_HELPER } from '../lib/helper/get-image-url.helper';
-import { IProductCart } from '../api/product/product.output';
-import Link from 'next/link';
-import Properties from '../cart/Properties';
-import { IProperty } from '../api/order/order.output';
+import RenderIf from '@/components/RenderIf';
 import WrappedLink from '@/components/Wrapped/WrappedLink';
+import Image from 'next/image';
+import { IProperty } from '../api/order/order.output';
+import Properties from '../cart/Properties';
+import { GET_IMAGE_URL_HELPER } from '../lib/helper/get-image-url.helper';
 
 type Props = {
   id: number;
@@ -13,12 +11,12 @@ type Props = {
   imageIndex: number;
   name: string;
   properties: IProperty[];
-  priceAtOrder: number;
+  finalPrice: number;
   price: number;
   amount: number;
 };
 
-export default function OrderItem({ slug, imageIndex, name, properties, price, priceAtOrder, amount }: Props) {
+export default function OrderItem({ slug, imageIndex, name, properties, price, finalPrice, amount }: Props) {
   return (
     <div className="flex justify-between p-4 gap-2 border-b" style={{ height: 180 }}>
       <Image width={106.8} height={145.8} alt="s" src={GET_IMAGE_URL_HELPER('products', slug + '-' + imageIndex)} />
@@ -27,9 +25,12 @@ export default function OrderItem({ slug, imageIndex, name, properties, price, p
           {name}
         </WrappedLink>
         <Properties properties={properties || []} />
-        <p>
-          Giá: {priceAtOrder}đ <span className="text-slate-400 line-through">{price}đ</span>
-        </p>
+        <div className="flex gap-1">
+          <span>Giá: {finalPrice}đ</span>
+          <RenderIf isRender={price !== finalPrice}>
+            <span className="text-slate-400 line-through">{price}đ</span>
+          </RenderIf>
+        </div>
         <div className="flex items-center gap-1">
           <p>
             Số lượng: <span className="font-medium">{amount}</span>

@@ -22,7 +22,7 @@ export interface IOrderItem {
   slug: string;
   imageIndex: number;
   price: number;
-  priceAtOrder: number;
+  finalPrice: number;
   amount: number;
   properties: IProperty[];
 }

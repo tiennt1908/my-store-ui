@@ -1,8 +1,5 @@
 import { GET_IMAGE_URL_HELPER } from '@/app/lib/helper/get-image-url.helper';
-import Link from 'next/link';
-import React from 'react';
-import Button from './Button';
-import WrappedLink from './Wrapped/WrappedLink';
+import WrappedLink from '../components/Wrapped/WrappedLink';
 
 type Props = {
   img: string;

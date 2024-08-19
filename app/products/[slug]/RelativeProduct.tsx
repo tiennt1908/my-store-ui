@@ -2,7 +2,7 @@
 
 import { PRODUCT_API } from '@/app/api/product';
 import { IProduct } from '@/app/api/product/product.output';
-import ProductListSlide from '@/components/ProductListSlide';
+import ProductListSlide from '@/components/Pages/ProductListSlide';
 import RenderIf from '@/components/RenderIf';
 import React, { useEffect, useState } from 'react';
 

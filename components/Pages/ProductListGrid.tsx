@@ -1,9 +1,9 @@
 import { IProduct } from '@/app/api/product/product.output';
 import React from 'react';
 import Product from './Product';
-import WrappedLink from './Wrapped/WrappedLink';
-import Button from './Button';
-import RenderIf from './RenderIf';
+import WrappedLink from '../Wrapped/WrappedLink';
+import Button from '../Button';
+import RenderIf from '../RenderIf';
 
 type Props = {
   title: string;

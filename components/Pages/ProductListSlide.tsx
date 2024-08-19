@@ -1,9 +1,9 @@
 import React from 'react';
-import WrappedLink from './Wrapped/WrappedLink';
+import WrappedLink from '../Wrapped/WrappedLink';
 import { IProduct } from '@/app/api/product/product.output';
-import Slide from './Slide';
+import Slide from '../Slide';
 import Product from './Product';
-import RenderIf from './RenderIf';
+import RenderIf from '../RenderIf';
 import ProductSkeleton from './ProductSkeleton';
 
 type Props = {

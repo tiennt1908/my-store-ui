@@ -1,8 +1,7 @@
 import { GET_IMAGE_URL_HELPER } from '@/app/lib/helper/get-image-url.helper';
 import Image from 'next/image';
-import Link from 'next/link';
-import RenderIf from './RenderIf';
-import WrappedLink from './Wrapped/WrappedLink';
+import RenderIf from '../RenderIf';
+import WrappedLink from '../Wrapped/WrappedLink';
 
 interface Props {
   name: string;

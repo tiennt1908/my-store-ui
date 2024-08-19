@@ -10,7 +10,7 @@ type Props = {
 };
 export default function OrderRow({ id, items, statusName }: Props) {
   const totalPayment = items.reduce((accum, e) => {
-    return accum + e.amount * e.priceAtOrder;
+    return accum + e.amount * e.finalPrice;
   }, 0);
 
   return (
@@ -27,7 +27,7 @@ export default function OrderRow({ id, items, statusName }: Props) {
               name={i.name}
               properties={i.properties}
               price={i.price}
-              priceAtOrder={i.priceAtOrder}
+              finalPrice={i.finalPrice}
               amount={i.amount}
             />
           );

@@ -1,5 +1,5 @@
 import React from 'react';
-import Skeleton from './Skeleton';
+import Skeleton from '../Skeleton';
 
 type Props = {
   [key: string]: unknown;
