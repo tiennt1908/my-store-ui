@@ -50,7 +50,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     actAddToCart: (state, { payload }: { payload: IOrderItem }) => {
-      let mapItems = CLONE_DEEP_UTILS(state.mapItems);
+      let mapItems = JSON.parse(localStorage.getItem(CART_STORAGE) || '{}');
 
       if (!mapItems[payload.productPropertyGroupId]?.productPropertyGroupId) {
         mapItems = {
