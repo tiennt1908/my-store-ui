@@ -7,6 +7,8 @@ import { AppDispatch, RootState } from '@/redux/store';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { OrderItemInput } from '../api/order/order.input';
+import { usePushURL } from '@/customHooks/usePushURL';
+import { TIMER_UTILS } from '../lib/utils/timer.utils';
 
 type OrderInfoFormType = {
   recipientName: string;
@@ -55,7 +57,9 @@ export default function CartInfo({ orderItems }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user.info);
 
-  const handleCreateOrder = () => {
+  const router = usePushURL();
+
+  const handleCreateOrder = async () => {
     if (orderItems.length < 1) {
       return dispatch(actPushMessages([{ message: 'Không có sản phẩm trong giỏ hàng', status: false }]));
     }
@@ -73,6 +77,8 @@ export default function CartInfo({ orderItems }: Props) {
         })
       );
     });
+    await TIMER_UTILS.sleep(1500);
+    router.gotoURL('user?tab=order');
   };
 
   useEffect(() => {
