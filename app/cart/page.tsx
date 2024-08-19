@@ -19,8 +19,11 @@ export default function CartPage({}: Props) {
   const cart = useSelector((state: RootState) => state.cart);
 
   useEffect(() => {
-    dispatch(actionAsyncGetCartProductDetail());
-  }, []);
+    const ids = Object.keys(cart.mapItems);
+    if (ids.length > 0) {
+      dispatch(actionAsyncGetCartProductDetail({ ids }));
+    }
+  }, [JSON.stringify(Object.keys(cart.mapItems))]);
 
   const orderItems = cart.detail.list.map((e) => {
     return {

@@ -1,4 +1,5 @@
 import { PRODUCT_API } from '@/app/api/product';
+import { GetProductCartByPropertyGroupIdsInput } from '@/app/api/product/product.input';
 import { IProductCart } from '@/app/api/product/product.output';
 import { CART_STORAGE } from '@/app/lib/static/storage.static';
 import { CLONE_DEEP_UTILS } from '@/app/lib/utils/clone.utils';
@@ -22,28 +23,31 @@ const initialState: CartSliceState = {
   mapItems: {},
   detail: {
     list: [],
-    isLoading: false,
+    isLoading: true,
   },
 };
 
-export const actionAsyncGetCartProductDetail = createAsyncThunk('cart/products', async (input, { rejectWithValue }) => {
-  try {
-    const cart = JSON.parse(localStorage.getItem(CART_STORAGE) || '{}');
-    const ids = Object.keys(cart);
+export const actionAsyncGetCartProductDetail = createAsyncThunk(
+  'cart/products',
+  async ({ ids }: GetProductCartByPropertyGroupIdsInput, { rejectWithValue }) => {
+    try {
+      // const cart = JSON.parse(localStorage.getItem(CART_STORAGE) || '{}');
+      // const ids = Object.keys(cart);
 
-    if (ids.length === 0) {
-      return rejectWithValue('Không có sản phẩm trong giỏ hàng');
+      if (ids.length === 0) {
+        return rejectWithValue('Không có sản phẩm trong giỏ hàng');
+      }
+
+      const { data } = await PRODUCT_API.getProductCartByPropertyGroupIds({
+        ids,
+      });
+
+      return data;
+    } catch (err: any) {
+      return rejectWithValue(err);
     }
-
-    const { data } = await PRODUCT_API.getProductCartByPropertyGroupIds({
-      ids,
-    });
-
-    return data;
-  } catch (err: any) {
-    return rejectWithValue(err);
   }
-});
+);
 
 export const cartSlice = createSlice({
   name: 'cart',
