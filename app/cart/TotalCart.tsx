@@ -3,6 +3,7 @@ import SpacingText from '@/components/SpacingText';
 import React from 'react';
 import { IProductCart } from '../api/product/product.output';
 import { IOrderItem } from '@/redux/slices/cart.slice';
+import RenderIf from '@/components/RenderIf';
 
 type Props = {
   products: IProductCart[];
@@ -37,7 +38,10 @@ export default function TotalCart({ products, mapItems }: Props) {
         </SpacingText>
         <SpacingText className="text-red-500">
           <p>Giảm giá:</p>
-          <p className="font-medium">{totalSaleValue}đ</p>
+          <p className="font-medium">
+            <RenderIf isRender={totalProductValue > 0}>-</RenderIf>
+            {totalSaleValue}đ
+          </p>
         </SpacingText>
         <SpacingText className="font-medium">
           <p>Thành tiền:</p>
