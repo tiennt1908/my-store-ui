@@ -20,9 +20,7 @@ export default function CartPage({}: Props) {
 
   useEffect(() => {
     const ids = Object.keys(cart.mapItems);
-    if (ids.length > 0) {
-      dispatch(actionAsyncGetCartProductDetail({ ids }));
-    }
+    dispatch(actionAsyncGetCartProductDetail({ ids }));
   }, [JSON.stringify(Object.keys(cart.mapItems))]);
 
   const orderItems = cart.detail.list.map((e) => {
@@ -39,7 +37,7 @@ export default function CartPage({}: Props) {
         <RenderIf isRender={cart.detail.list.length > 0}>
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-8">
-              <div className="bg-white rounded shadow-sm" style={{ minHeight: 180 * 2 }}>
+              <div className="bg-white rounded shadow-sm">
                 {cart.detail.list.map((p) => {
                   return <Item key={p.id} {...p} />;
                 })}
