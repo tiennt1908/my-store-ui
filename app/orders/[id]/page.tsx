@@ -1,6 +1,7 @@
 'use client';
 
 import Button from '@/components/Button';
+import OrderItem from '@/components/Pages/OrderItem';
 import RenderIf from '@/components/RenderIf';
 import SpacingText from '@/components/SpacingText';
 import { actionAsyncGetItemByOrderIds } from '@/redux/slices/order.slice';
@@ -25,6 +26,18 @@ export default function OrderDetail({ params }: Props) {
   }, [orderId]);
 
   const order = mapItem[orderId];
+  const orderItems = order?.items || [];
+
+  const totalProductValue = orderItems.reduce((accum, e) => {
+    return accum + e.price * e.amount;
+  }, 0);
+  const totalProductFinalValue = orderItems.reduce((accum, e) => {
+    return accum + e.finalPrice * e.amount;
+  }, 0);
+  const totalSaleValue = totalProductValue - totalProductFinalValue;
+  const productCount = orderItems.reduce((accum, e) => {
+    return accum + e.amount;
+  }, 0);
 
   return (
     <div>
@@ -34,7 +47,23 @@ export default function OrderDetail({ params }: Props) {
             <h1 className="text-lg font-medium">Đơn hàng #{order.id}</h1>
             <div className="grid grid-cols-12 gap-4">
               <div className="col-span-8">
-                <div className="bg-white rounded shadow-sm" style={{ minHeight: 180 * 3 }}></div>
+                <div className="bg-white rounded shadow-sm">
+                  {orderItems.map((i) => {
+                    return (
+                      <OrderItem
+                        key={i.id}
+                        id={i.id}
+                        slug={i.slug}
+                        imageIndex={i.imageIndex}
+                        name={i.name}
+                        properties={i.properties}
+                        price={i.price}
+                        finalPrice={i.finalPrice}
+                        amount={i.amount}
+                      />
+                    );
+                  })}
+                </div>
               </div>
               <div className="col-span-4 flex flex-col gap-4">
                 <div className="bg-white rounded shadow-sm p-4 flex flex-col gap-4">
@@ -42,19 +71,22 @@ export default function OrderDetail({ params }: Props) {
                   <div className="flex flex-col gap-2">
                     <SpacingText>
                       <p>Giá trị đơn hàng:</p>
-                      <p className="font-medium">{1000000}đ</p>
+                      <p className="font-medium">{totalProductValue}đ</p>
                     </SpacingText>
                     <SpacingText>
                       <p>Số lượng:</p>
-                      <p className="font-medium">{5}</p>
+                      <p className="font-medium">{productCount}</p>
                     </SpacingText>
                     <SpacingText className="text-red-500">
                       <p>Giảm giá:</p>
-                      <p className="font-medium">{100000}đ</p>
+                      <p className="font-medium">
+                        <RenderIf isRender={totalProductValue > 0}>-</RenderIf>
+                        {totalSaleValue}đ
+                      </p>
                     </SpacingText>
                     <SpacingText className="font-medium">
                       <p>Thành tiền:</p>
-                      <p>{900000}đ</p>
+                      <p className="text-lg">{totalProductFinalValue}đ</p>
                     </SpacingText>
                   </div>
                 </div>
@@ -69,10 +101,10 @@ export default function OrderDetail({ params }: Props) {
                       <p>SĐT người nhận:</p>
                       <p className="font-medium">{order.phoneNumber}</p>
                     </SpacingText>
-                    <div>
-                      <p className="whitespace-nowrap">Địa chỉ nhận hàng:</p>
+                    <SpacingText className="gap-4">
+                      <p className="whitespace-nowrap">Địa chỉ:</p>
                       <p className="font-medium">{order.address}</p>
-                    </div>
+                    </SpacingText>
                     <Button theme="black">Hủy Đơn Hàng</Button>
                   </div>
                 </div>

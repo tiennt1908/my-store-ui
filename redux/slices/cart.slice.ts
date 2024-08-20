@@ -61,7 +61,6 @@ export const cartSlice = createSlice({
       } else {
         mapItems[payload.productPropertyGroupId].amount += payload.amount * 1;
       }
-
       state.mapItems = mapItems;
       localStorage.setItem(CART_STORAGE, JSON.stringify(mapItems));
     },

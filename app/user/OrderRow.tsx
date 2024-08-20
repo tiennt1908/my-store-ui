@@ -1,7 +1,7 @@
 import { IOrderItem } from '../api/order/order.output';
 import OrderFooter from './OrderFooter';
 import OrderHeader from './OrderHeader';
-import OrderItem from './OrderItem';
+import OrderItem from '../../components/Pages/OrderItem';
 
 type Props = {
   id: number;

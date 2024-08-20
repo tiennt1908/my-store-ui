@@ -1,9 +1,9 @@
 import RenderIf from '@/components/RenderIf';
 import WrappedLink from '@/components/Wrapped/WrappedLink';
 import Image from 'next/image';
-import { IProperty } from '../api/order/order.output';
-import Properties from '../cart/Properties';
-import { GET_IMAGE_URL_HELPER } from '../lib/helper/get-image-url.helper';
+import { IProperty } from '../../app/api/order/order.output';
+import Properties from '../../app/cart/Properties';
+import { GET_IMAGE_URL_HELPER } from '../../app/lib/helper/get-image-url.helper';
 
 type Props = {
   id: number;
