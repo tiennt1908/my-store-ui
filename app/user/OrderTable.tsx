@@ -45,7 +45,7 @@ export default function OrderTable({}: Props) {
       {order.list.map((o) => {
         return (
           <div className="bg-white rounded shadow-sm" key={o.id}>
-            <OrderRow id={o.id} items={order.mapItem[o.id]?.items || []} statusName={o.statusName} />
+            <OrderRow id={o.id} items={order.mapItem[o.id]?.items || []} statusName={o.statusName} isLoading={order.mapItem.isLoading} />
           </div>
         );
       })}
