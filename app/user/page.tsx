@@ -57,7 +57,7 @@ export default function UserPage({}: Props) {
   };
 
   return (
-    <div className="grid grid-cols-12 gap-4 mt-4">
+    <div className="grid grid-cols-12 gap-4">
       <div className="col-span-3">
         <div className="py-3 bg-white rounded shadow-sm">
           <OptionList
